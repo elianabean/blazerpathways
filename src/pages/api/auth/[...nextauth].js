@@ -23,7 +23,6 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      console.log('callback called')
       session.user.role = token.role;
       session.user.id = token.id;
       return session;

@@ -1,101 +1,98 @@
-import Image from "next/image";
+import { Button } from "@nextui-org/react";
+import Link from "next/link";
+import Image from 'next/image'
+import Header from '@components/Header2'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="h-full">
+      <Header></Header>
+      <div className="text-center flex justify-center items-center h-full w-full px-[116px]">
+        <div className=" h-[100vh] w-[60%] flex flex-col justify-center items-start">
+          <h1 className="text-7xl mb-4  font-bold text-left text-text leading-[1.1]">Embark on your <span className="text-primary">pathway</span> to career success.</h1>
+          <h2 className="mb-8  text-left text-[18px] w-[75%] text-[#777777]">Explore job listings, submit applications, and create connections that matter—all in one place.
+          </h2>
+          <Button className="bg-primary text-white font-semibold" as={Link} href="/learn">
+            Get Started
+          </Button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="w-[40%] h-full flex flex-col items-center justify-center">
+        <Image src="/images/self-learning.png" width={500} height={500} alt="Learning Icon"/>
+        </div>
+      </div>
+
+      <div className="text-center flex flex-row justify-center items-center h-full w-full px-[116px]">
+        <div className="h-full w-[40%] flex flex-col justify-center items-center">
+          <Image src="/images/online-exam.png" width={400} height={400} alt="icon"></Image>
+        </div>
+        
+        <div className="h-full w-[60%] flex flex-col justify-center items-start">
+          <p className="w-full text-left font-bold text-[32px] text-[#444444]">Join our collaborative learning platform!</p>
+          <p className="text-left text-[16px] text-text w-[80%] mt-[10px]">Our platform is designed to make studying more accessible and collaborative. Whether you&apos;re preparing for exams or tackling a tough subject, you can find a wealth of student-shared resources to support your learning. Together, we make learning easier and more engaging.</p>
+          <Button className="bg-[white] text-[#0E793C] border-1 border-[#0E793C] mt-[12px] font-semibold" as={Link} href="/learn">
+            Start Learning  →
+          </Button>
+        </div>
+      </div>
+
+      <div className="text-center flex flex-col justify-start items-center h-full w-full px-[116px]">
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-[16px]  font-bold text-[#6B7280]">Why Us</p>
+          <p className="text-[32px]  font-bold text-[#444444]">Key Features of our Platform</p>
+        </div>
+
+        <div className="grid grid-rows-1 grid-flow-col justify-center items-center gap-x-[24px] mt-[20px]">
+          <div className="rounded-md shadow-[#EEEEEE] shadow-md w-[300px] h-[400px] flex flex-col justify-center items-center px-[12px]">
+            <Image src="/images/collaborate.png" width={96} height={96} alt={"icon"}></Image>
+            <p className=" font-bold text-[20px] pt-[8px] text-[#444444]">Collaborative Study Hub</p>
+            <p className=" text-[16px] pt-[8px] text-[#6B7280]">Connect with students from all over by sharing and accessing study materials. Learn more efficiently through collaboration.</p>
+          </div>
+          <div className="rounded-md shadow-[#EEEEEE] shadow-md w-[300px] h-[400px] flex flex-col justify-center items-center px-[12px]">
+            <Image src="/images/file.png" width={96} height={96} alt={"icon"}></Image>
+            <p className=" font-bold text-[20px] pt-[8px] text-[#444444]">Upload & Share Materials</p>
+            <p className=" text-[16px] pt-[8px] text-[#6B7280]">Easily upload your notes, flashcards, and other study resources to help others while benefiting from materials shared by your peers.</p>
+          </div>
+          <div className="rounded-md shadow-[#EEEEEE] shadow-md w-[300px] h-[400px] flex flex-col justify-center items-center px-[12px]">
+            <Image src="/images/knowledge.png" width={96} height={96} alt={"icon"}></Image>
+            <p className=" font-bold text-[20px] pt-[8px] text-[#444444]">Discover New Resources</p>
+            <p className=" text-[16px] pt-[8px] text-[#6B7280]">Browse through a wide variety of student-contributed content to find new ways to approach your studies and deepen your understanding.</p>
+          </div>
+          <div className="rounded-md shadow-[#EEEEEE] shadow-md w-[300px] h-[400px] flex flex-col justify-center items-center px-[12px]">
+            <Image src="/images/interactive.png" width={96} height={96} alt={"icon"}></Image>
+            <p className=" font-bold text-[20px] pt-[8px] text-[#444444]">Interactive Learning</p>
+            <p className=" text-[16px] pt-[8px] text-[#6B7280]">Engage with diverse learning materials and collaborate in real-time with your peers, making studying more dynamic and effective.</p>
+          </div>
+          
+        </div>
+      </div>
+
+      <div className="text-center flex flex-row justify-center items-center h-full w-full px-[116px]">
+        <div className="h-full w-[60%] flex flex-col justify-center items-start">
+          <div className="flex flex-col justify-center items-start">
+            <p className="text-[16px]  font-bold text-[#6B7280]">Easy and Fast</p>
+            <p className="text-[32px]  font-bold text-[#444444] w-[80%] text-left">Transform Your Learning In Three Steps</p>
+          </div>
+
+          <div className="grid grid-rows-3 grid-flow-col justify-start items-start gap-x-[24px] gap-y-[16px] mt-[20px] w-full">
+            <div><Image src="/images/enter.png" width={40} height={40} alt="icon"></Image></div>
+            <div><Image src="/images/choose.png" width={40} height={40} alt="icon"></Image></div>
+            <div><Image src="/images/studying.png" width={40} height={40} alt="icon"></Image></div>
+            <div><p className="flex flex-row justify-start  text-[#6B7280] text-[16px]">Login or Register for an account on our platform</p></div>
+            <div><p className="flex flex-row justify-start  text-[#6B7280] text-[16px]">Select a module to start learning</p></div>
+            <div><p className="flex flex-row justify-start  text-[#6B7280] text-[16px]">Watch the video, read the article, and test your knowledge on the quiz</p></div>
+          </div>
+
+          <Button className="bg-[#0E793C] text-white mt-[20px] font-semibold" as={Link} href="/login">
+            Register/Login
+          </Button>
+          
+        </div>
+        
+        <div className="h-full w-[40%] flex flex-col justify-center items-start">
+          <Image src="/images/best-results.png" width={400} height={400} alt="icon"></Image>
+        </div>
+      </div>
+
     </div>
   );
 }

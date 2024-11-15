@@ -11,14 +11,18 @@ export default async function handler(req, res) {
 
       await dbConnect();
 
-      const { title, company, description, location, applicationLink, employerId } = req.body;
+      const { title, type, salary, company, description, location, xpLevel, keywords, contact, employerId } = req.body;
 
       const newJobPosting = new JobPosting({
         title,
+        type,
+        salary,
         company,
         description,
         location,
-        applicationLink,
+        xpLevel,
+        keywords,
+        contact,
         employerId,
         status: 'pending',
       });

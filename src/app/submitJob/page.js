@@ -3,6 +3,8 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Header from "@components/Header";
+import {Input, Textarea, Button, Select, SelectItem, DateInput} from "@nextui-org/react";
 
 export default function SubmitJobPage() {
   const { data: session, status } = useSession();
@@ -10,10 +12,14 @@ export default function SubmitJobPage() {
 
   const [form, setForm] = useState({
     title: '',
+    type: '',
+    salary: '',
     company: '',
     description: '',
     location: '',
-    applicationLink: '',
+    xpLevel: '',
+    keywords: '',
+    contact: '',
     employerId: '', 
   });
 
@@ -39,6 +45,10 @@ export default function SubmitJobPage() {
     setForm({ ...form, [name]: value });
   };
 
+  const handleChange2 = ({ name, value }) => {
+    setForm({ ...form, [name]: value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -50,7 +60,6 @@ export default function SubmitJobPage() {
 
       if (response.ok) {
         alert('Job posting submitted successfully!');
-        setForm({ title: '', company: '', description: '', location: '', applicationLink: '', employerId: session.user.id });
       } else {
         alert('Failed to submit job posting');
       }
@@ -59,32 +68,66 @@ export default function SubmitJobPage() {
     }
   };
 
+  const jobTypes = [
+    { key: "full_time", label: "Full-Time" },
+    { key: "part_time", label: "Part-Time" },
+    { key: "internship", label: "Internship" },
+    { key: "volunteer", label: "Volunteer" },
+  ];
+  const xpLevel = [
+    { key: "entry_level", label: "Entry-Level" },
+    { key: "intermediate", label: "Intermediate" },
+    { key: "senior", label: "Senior" },
+    { key: "None", label: "None" },
+  ];
+
   return (
-    <div>
-      <h1>Submit a Job Posting</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Job Title:
-          <input type="text" name="title" value={form.title} onChange={handleChange} required />
-        </label>
-        <label>
-          Company:
-          <input type="text" name="company" value={form.company} onChange={handleChange} required />
-        </label>
-        <label>
-          Description:
-          <textarea name="description" value={form.description} onChange={handleChange} required />
-        </label>
-        <label>
-          Location:
-          <input type="text" name="location" value={form.location} onChange={handleChange} required />
-        </label>
-        <label>
-          Application Link:
-          <input type="url" name="applicationLink" value={form.applicationLink} onChange={handleChange} required />
-        </label>
-        <button type="submit">Submit Job</button>
+    <div className="h-full">
+      <Header></Header>
+      <div className="flex flex-row mt-[60px] mx-[10vw] justify-center items-center">
+        <div className="w-[60%] ">
+          <p className="text-text font-bold leading-[1.1] text-4xl">Submit a Job Posting</p>
+
+          <p className="text-left text-[#777777] text-[16x] mt-[20px] w-[75%]">Enter details for your job below. Once submitted, your posting will be reviewed by administrators for approval before it appears on the Job Board.</p>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-[40px]">
+        
+          <Input type="text" name="title" variant={'underlined'} label="Job Title" value={form.title} onChange={handleChange} isRequired/>
+          <div className="flex flex-row gap-4">
+            <Select name="type" variant={'underlined'} label="Job Type" value={form.type} onChange={handleChange} isRequired>
+              {jobTypes.map((job) => (
+            <SelectItem key={job.key}>
+              {job.label}
+            </SelectItem>
+        ))}
+            </Select>
+            <Input type="text" name="salary" variant={'underlined'} label="Salary Range" value={form.salary} onChange={handleChange} isRequired/>
+          </div>
+          <Input type="text" name="company" variant={'underlined'} label="Company" value={form.company} onChange={handleChange} isRequired/>
+          <Textarea name="description" variant={'underlined'} label="Description" value={form.description} onChange={handleChange} isRequired/>
+          <Input type="text" name="location" variant={'underlined'} label="Location" value={form.location} onChange={handleChange} isRequired/>
+
+          <div className="flex flex-row gap-4">
+            <Select name="xpLevel" variant={'underlined'} label="Experience Level" value={form.xpLevel} onChange={handleChange} isRequired>
+              {xpLevel.map((job) => (
+            <SelectItem key={job.key}>
+              {job.label}
+            </SelectItem>
+        ))}
+            </Select>
+            <DateInput name="deadline" label="Application Deadline" value={form.deadline} variant="underlined" onChange={(value) => handleChange2({ name: "deadline", value })} isRequired>
+            </DateInput>
+          </div>
+          <Input type="text" name="keywords" variant={'underlined'} label="Keywords" value={form.keywords} onChange={handleChange} isRequired/>
+          <Input type="email" name="contact" variant={'underlined'} label="Contact Email" value={form.contact} onChange={handleChange} isRequired/>
+        <Button type="submit" color="primary" className="mt-4">Submit Job</Button>
       </form>
+        </div>
+
+        <div className="w-[40%] flex flex-col justify-center">
+
+        </div>
+      </div>
     </div>
   );
 }
