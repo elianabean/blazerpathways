@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} font-inter`}
+        className={`${inter.variable} font-inter overflow-x-hidden overflow-y-scroll`}
       >
         <Providers>
           

@@ -8,20 +8,37 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownSection,
+  NavbarMenuToggle,
+  NavbarMenu, 
+  NavbarMenuItem,
   DropdownItem
 } from "@nextui-org/react";
 import Link from 'next/link';
 import { useSession, signOut} from "next-auth/react";
+import Image from 'next/image';
+import React from "react";
 
 export default function Header() {
   const { data: session } = useSession();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Sign Out",
+  ];
+
 
   return (
     <div>
-      <Navbar className="bg-gradient-to-r from-primary to-[#f46676] shadow-md">
-        <NavbarBrand>
+      <Navbar className="w-[100vw] bg-gradient-to-r from-primary to-[#f46676] shadow-md" onMenuOpenChange={setIsMenuOpen}>
+      <NavbarBrand>
           <Link href="/">
+            <div className="flex flex-row items-center">
+            <Image src="/images/white blair.png" width={48} height={48} alt="logo"></Image>
             <p className="font-bold text-white">Blazer Pathways</p>
+            </div>
+            
           </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-6 text-[#2b2d42]" justify="end">
@@ -88,7 +105,28 @@ export default function Header() {
       </Dropdown>
             </NavbarItem></>
           )}
+          
         </NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
+        <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              color={
+                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+              }
+              className="w-full"
+              href="#"
+              size="lg"
+            >
+              {item}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
       </Navbar>
     </div>
   );
