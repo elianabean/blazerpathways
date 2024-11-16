@@ -36,7 +36,18 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="text-center flex flex-col justify-start items-center min-h-[90vh] h-full w-full md:px-[116px] px-[48px] mt-[24px] md:mt-0">
+      
+      <div className="text-center flex md:flex-row flex-col justify-center items-center h-full w-full md:px-[116px] px-[48px] min-h-[70vh]">
+        <div className="h-full w-[60%] flex flex-col justify-center items-center rounded-lg shadow-md px-8 py-16">
+          <p className="w-full text-center font-bold text-[32px] text-[#444444]">Gain Career Readiness</p>
+          <p className="text-center md:text-[14px] xl:text-[16px] text-text md:w-[80%] mt-[10px] High schools that introduced job platforms saw a 30% increase in student employment rates within the first year">High schools that introduced job platforms saw a <span className="text-primary font-bold">30% increase</span> in student employment rates within the first year <a href="https://www.edsurge.com/news/2020-06-11-the-post-pandemic-outlook-for-edtech">(source)</a>.</p>
+          <Button color="primary" variant="solid" className="mt-[12px] font-semibold" as={Link} href="/approvedJobs">
+            Search Jobs
+          </Button>
+        </div>
+      </div>
+
+      <div className="text-center flex flex-col justify-start items-center min-h-[90vh] h-full w-full md:px-[116px] px-[48px] mt-[24px]">
         <div className="flex flex-col justify-center items-center">
           <p className="text-[16px]  font-bold text-[#6B7280]">Why Us</p>
           <p className="text-[32px]  font-bold text-[#444444]">Key Features of our Platform</p>
@@ -74,14 +85,14 @@ export default function Home() {
             <div><Image src="/images/point.png" width={40} height={40} alt="icon"></Image></div>
             <div><Image src="/images/point.png" width={40} height={40} alt="icon"></Image></div>
             <div><Image src="/images/point.png" width={40} height={40} alt="icon"></Image></div>
-            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left md:text-center">Employers Submit Postings</p>
-            <p className="text-[#AAAAAA] text-left md:text-center">Use our employer-friendly submission form to share job openings and essential details.</p></div>
-            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left md:text-center">Approval Panel Review</p>
-            <p className="text-[#AAAAAA] text-left md:text-center">Our team reviews and approves job postings.</p></div>
-            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left md:text-center">Job Postings Go Live</p>
-            <p className="text-[#AAAAAA] text-left md:text-center">Approved jobs are featured on the platform for students to explore.</p></div>
-            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left md:text-center">Students Apply</p>
-            <p className="text-[#AAAAAA] text-left md:text-center">Students submit their applications directly through the platform.</p></div>
+            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left">Employers Submit Postings</p>
+            <p className="text-[#AAAAAA] text-left ">Use our employer-friendly submission form to share job openings and essential details.</p></div>
+            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left ">Approval Panel Review</p>
+            <p className="text-[#AAAAAA] text-left ">Our team reviews and approves job postings.</p></div>
+            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left ">Job Postings Go Live</p>
+            <p className="text-[#AAAAAA] text-left ">Approved jobs are featured on the platform for students to explore.</p></div>
+            <div><p className="flex flex-row justify-start  text-text text-[16px] font-bold text-left ">Students Apply</p>
+            <p className="text-[#AAAAAA] text-left ">Students submit their applications directly through the platform.</p></div>
           </div>
 
           <Button color="primary" className="mt-6" as={Link} href="/register">
