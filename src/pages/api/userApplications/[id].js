@@ -14,8 +14,10 @@ export default async function handler(req, res) {
 
       // fetch all applications for the given userId
       const applications = await JobApplication.find({ userId: session.user.id })
-        .populate('jobId', 'title')
+        .populate('jobId', 'title company')
         .exec();
+
+      console.log(applications)
 
       if (!applications.length) {
         return res.status(404).json({ message: 'No applications found' });

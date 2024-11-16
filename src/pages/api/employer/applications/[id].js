@@ -18,7 +18,8 @@ export default async function handler(req, res) {
       }
 
       // the applications for the jobs posted by this employer
-      const applications = await JobApplication.find({ jobId });
+      const applications = await JobApplication.find({ jobId }).populate('jobId', 'title company')
+      .exec();;
 
       console.log(applications)
       

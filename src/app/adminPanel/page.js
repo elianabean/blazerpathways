@@ -85,7 +85,7 @@ export default function AdminPanel() {
         const data = await response.json();
 
         console.log('Approved job', data);
-        router.push('/adminPanel');
+        router.reload();
 
       } else {
 
@@ -117,7 +117,7 @@ export default function AdminPanel() {
 
       if (response.ok) {
         alert('Job posting deleted successfully!');
-        router.push('/adminPanel');
+        router.reload();
       } else {
         alert('Failed to delete job posting');
       }
