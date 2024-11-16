@@ -2,24 +2,19 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Header2 from "@components/Header2";
+import Image from 'next/image';
+import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
 
 export default function AdminPanel() {
 
   const { data: session, status } = useSession();
-
   const router = useRouter();
-
-
-
   const [jobPostings, setJobPostings] = useState([]);
-
-
 
   useEffect(() => {
 
     if (status === 'loading') return;
-
-
 
     if (!session || session.user.role !== 'admin') {
 
@@ -33,7 +28,7 @@ export default function AdminPanel() {
 
       try {
 
-        const response = await fetch('/api/jobs');
+        const response = await fetch('/api/admin/jobs');
 
         const jobs = await response.json();
 
@@ -41,7 +36,7 @@ export default function AdminPanel() {
 
       } catch (error) {
 
-        console.error('Error fetching job postings:', error);
+        console.log('Error fetching job postings:', error);
 
       }
 
@@ -76,6 +71,7 @@ export default function AdminPanel() {
         const data = await response.json();
 
         console.log('Approved job', data);
+        router.push('/adminPanel');
 
       } else {
 
@@ -117,37 +113,98 @@ export default function AdminPanel() {
   };
 
 
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   if (status === 'loading') return <p>Loading...</p>;
 
 
 
   return (
+    <div className='h-full w-full'>
+      <Header2></Header2>
+      <div className="flex flex-row mt-[60px] mx-[10vw] justify-center items-start">
+        <div className="w-[20%] flex flex-col justify-center items-start gap-6">
+          <p className="text-[#CCCCCC] text-[18px]">MANAGE</p>
+          <div className="ml-[16px] text-text text-[18px] flex flex-col gap-4 items-start">
+            <Button className="flex flex-row items-center gap-4 bg-white" startContent={<Image src="/icons/jobPostings.png" width={28} height={28} alt="job postings"/>}>Job Postings</Button>
+            <Button className="flex flex-row items-center gap-4 bg-white" startContent={<Image src="/icons/users.png" width={28} height={28} alt="job postings"/>}>Users</Button>
+          </div>
 
-    <div>
+          <p className="text-[#CCCCCC] text-[18px]">ACCOUNT</p>
+          <div className="ml-[16px] text-text text-[18px] flex flex-col gap-4 items-start">
+            <Button className="flex flex-row items-center gap-4 bg-white" startContent={<Image src="/icons/jobPostings.png" width={28} height={28} alt="job postings"/>}>Settings</Button>
+          </div>
+        </div>
 
-      <h1>Admin Panel: Manage Job Postings</h1>
+        <div className="w-[80%] flex flex-col items-start justify-start">
+            <p className="text-4xl text-text font-bold">Job Postings</p>
+            <p className="text-[18px] text-[#AAAAAA] mt-4">View jobs requested to be posted on the job board.</p>
 
-      <ul>
+            <div className="flex flex-row justify-between items-center w-[100%] mt-[32px] px-[48px]">
+              <p className="w-1/3 text-[#CCCCCC] text-left">JOB TITLE</p>
+              <p className="w-1/3 text-[#CCCCCC] text-center">COMPANY</p>
+              <p className="w-1/3 text-[#CCCCCC] text-right">STATUS</p>
+            </div>
+            <ul className="w-[100%] mt-[12px] gap-8">
+            {jobPostings.map((job) => (
+              <li key={job._id} className="w-[100%]">
+                <Button onPress={onOpen} className="w-[100%] bg-white shadow-md rounded-md px-[32px] py-[40px]">
+                  <div className="w-[100%] bg-white flex flex-row justify-between items-center">
+                    <p className="w-1/3 text-left">{job.title}</p>
+                    <p className="w-1/3 text-left">{job.company}</p>
+                    <div className={`bg-white rounded-full px-3 py-2 border-1 border-${
+    job.status === 'approved' 
+      ? 'success' 
+      : job.status === 'pending' 
+      ? 'warning' 
+      : 'error'
+  } text-${
+    job.status === 'approved' 
+      ? 'success' 
+      : job.status === 'pending' 
+      ? 'warning' 
+      : 'error'
+  }`}>{job.status}</div>
+                  </div>
+                  
+                </Button>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{job.title}</ModalHeader>
+              <ModalBody>
+                <p className="font-bold">Salary Range: <span className="font-normal">{job.salary}</span></p>
+                <p className="font-bold">Company: <span className="font-normal">{job.company}</span></p>
+                <p className="font-bold">Description: <span className="font-normal">{job.description}</span></p>
+                <p className="font-bold">Location: <span className="font-normal">{job.location}</span></p>
+                <p className="font-bold">Experience Level: <span className="font-normal">{job.xpLevel}</span></p>
+                <p className="font-bold">Keywords: <span className="font-normal">{job.keywords}</span></p>
+                <p className="font-bold">Contact Email: <span className="font-normal">{job.contact}</span></p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="success" onClick={() => handleApprove(job._id)} className={`${
+    job.status === 'approved' 
+      ? 'hidden' : 'inline'
+  }`}>
+                  Approve
+                </Button>
+                <Button color="primary"  onClick={() => handleDelete(job._id)}>
+                  Delete
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+              </li>
 
-        {jobPostings.map((job) => (
+            ))}
 
-          <li key={job._id}>
+            </ul>
+        </div>
 
-            <h2>{job.title}</h2>
-
-            <p>{job.description}</p>
-
-            <button onClick={() => handleApprove(job._id)}>Approve</button>
-
-            <button onClick={() => handleDelete(job._id)}>Delete</button>
-
-          </li>
-
-        ))}
-
-      </ul>
-
+      </div>
     </div>
 
   );

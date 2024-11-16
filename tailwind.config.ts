@@ -15,7 +15,8 @@ export default {
         'background': '#fbfbfe',
         'primary': '#ef253c',
         'secondary': '#e4eaec',
-        'accent': '#ef253c',
+        'warning': '#ffa500',
+        'success': '#00ff00',
       },fontFamily: {
         'inter': ['var(--font-inter)'],
       },
