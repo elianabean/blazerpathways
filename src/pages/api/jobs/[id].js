@@ -69,7 +69,7 @@ export default async function handler(req, res) {
 
   else if (req.method === 'POST') {
     // handle application submission for a specific job
-    const { name, email, resumeLink } = req.body;
+    const { name, email, phone, resumeLink, portfolio } = req.body;
 
     try {
       const session = await getServerSession(req, res, authOptions);
@@ -87,7 +87,9 @@ export default async function handler(req, res) {
         jobId: id,
         name,
         email,
+        phone,
         resumeLink,
+        portfolio,
         appliedAt: new Date(),
         status: 'pending',
         userId,
