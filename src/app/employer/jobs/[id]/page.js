@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation'
-import Header2 from '@components/Header2'
+import Header from '@components/Header2'
 import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
 import React from "react";
 import Image from 'next/image';
@@ -73,7 +73,7 @@ export default function JobApplicationsPage() {
 
   return (
     <div className='h-full w-full'>
-      <Header2></Header2>
+      <Header></Header>
       <div className="flex flex-row mt-[60px] mx-[10vw] justify-center items-start">
         <div className="w-[20%] flex flex-col justify-center items-start gap-6">
           <p className="text-[#CCCCCC] text-[18px]">MANAGE</p>
