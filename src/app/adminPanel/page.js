@@ -5,12 +5,26 @@ import { useEffect, useState } from 'react';
 import Header2 from "@components/Header2";
 import Image from 'next/image';
 import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
+import React from "react";
 
 export default function AdminPanel() {
 
   const { data: session, status } = useSession();
   const router = useRouter();
   const [jobPostings, setJobPostings] = useState([]);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  
+  const handleOpen = (job) => {
+    setSelectedJob(job); // Set the selected job
+    onOpen(); // Open the modal
+  };
+
+  const handleClose = () => {
+    setSelectedJob(null); // Clear the selected job
+    onOpenChange(false); // Close the modal
+  };
 
   useEffect(() => {
 
@@ -112,9 +126,6 @@ export default function AdminPanel() {
     }
   };
 
-
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
   if (status === 'loading') return <p>Loading...</p>;
 
 
@@ -145,13 +156,13 @@ export default function AdminPanel() {
               <p className="w-1/3 text-[#CCCCCC] text-center">COMPANY</p>
               <p className="w-1/3 text-[#CCCCCC] text-right">STATUS</p>
             </div>
-            <ul className="w-[100%] mt-[12px] gap-8">
+            <ul className="w-[100%] mt-[12px]">
             {jobPostings.map((job) => (
-              <li key={job._id} className="w-[100%]">
-                <Button onPress={onOpen} className="w-[100%] bg-white shadow-md rounded-md px-[32px] py-[40px]">
+              <li key={job._id} className="w-[100%] mb-10">
+                <Button onPress={() => handleOpen(job)} className="w-[100%] bg-white shadow-md rounded-md px-[32px] py-[40px]">
                   <div className="w-[100%] bg-white flex flex-row justify-between items-center">
-                    <p className="w-1/3 text-left">{job.title}</p>
-                    <p className="w-1/3 text-left">{job.company}</p>
+                    <p className="w-1/3 text-left truncate">{job.title}</p>
+                    <p className="w-1/3 text-left truncate">{job.company}</p>
                     <div className={`bg-white rounded-full px-3 py-2 border-1 border-${
     job.status === 'approved' 
       ? 'success' 
@@ -168,7 +179,10 @@ export default function AdminPanel() {
                   </div>
                   
                 </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                {selectedJob && selectedJob._id === job._id && (
+      <Modal isOpen={isOpen} onOpenChange={(isOpen) => {
+        if (!isOpen) handleClose();
+      }} scrollBehavior={scrollBehavior}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -196,7 +210,7 @@ export default function AdminPanel() {
             </>
           )}
         </ModalContent>
-      </Modal>
+      </Modal>)}
               </li>
 
             ))}

@@ -11,7 +11,8 @@ export default async function handler(req, res) {
 
       await dbConnect();
 
-      const { title, type, salary, company, description, location, xpLevel, keywords, contact, employerId } = req.body;
+      const { title, type, salary, company, description, location, xpLevel, deadline, keywords, contact, employerId } = req.body;
+      console.log(type, deadline)
 
       const newJobPosting = new JobPosting({
         title,
@@ -21,6 +22,7 @@ export default async function handler(req, res) {
         description,
         location,
         xpLevel,
+        deadline,
         keywords,
         contact,
         employerId,

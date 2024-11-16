@@ -18,6 +18,7 @@ export default function SubmitJobPage() {
     description: '',
     location: '',
     xpLevel: '',
+    deadline: '',
     keywords: '',
     contact: '',
     employerId: '', 
@@ -42,10 +43,6 @@ export default function SubmitJobPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
-  const handleChange2 = ({ name, value }) => {
     setForm({ ...form, [name]: value });
   };
 
@@ -115,8 +112,8 @@ export default function SubmitJobPage() {
             </SelectItem>
         ))}
             </Select>
-            <DateInput name="deadline" label="Application Deadline" value={form.deadline} variant="underlined" onChange={(value) => handleChange2({ name: "deadline", value })} isRequired>
-            </DateInput>
+            <Input type="text" name="deadline" label="Application Deadline" value={form.deadline} variant="underlined" onChange={handleChange} isRequired placeholder="mm/dd/yyyy">
+            </Input>
           </div>
           <Input type="text" name="keywords" variant={'underlined'} label="Keywords" value={form.keywords} onChange={handleChange} isRequired/>
           <Input type="email" name="contact" variant={'underlined'} label="Contact Email" value={form.contact} onChange={handleChange} isRequired/>
