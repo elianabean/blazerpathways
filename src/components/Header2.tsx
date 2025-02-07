@@ -72,9 +72,6 @@ export default function Header() {
                   <NavbarItem>
                     <Link href="/approvedJobs" ><p className="text-white">Job Board</p></Link>
                   </NavbarItem>
-                  <NavbarItem>
-                    <Link href="/applications" ><p className="text-white">My Applications</p></Link>
-                  </NavbarItem>
                 </>
               )}
               {session?.user?.role === "admin" && ( // Optional chaining
