@@ -1,6 +1,6 @@
 import dbConnect from '../../../../lib/dbConnect';
 import JobApplication from '../../../../models/jobApplications';
-import JobPosting from '@/models/JobPosting';
+import JobPosting from '@/models/jobPostings';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import sgMail from '@sendgrid/mail';
