@@ -7,7 +7,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
-
   return (
     <div>
       <Navbar className="border-t-1 border-[#AAAAAA] bg-white">

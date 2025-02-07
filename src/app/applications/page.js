@@ -70,8 +70,8 @@ export default function ApplicationsPage() {
               <li key={app._id} className="w-[100%] mb-10">
                 <Button onPress={() => handleOpen(app)} className="w-[100%] bg-white shadow-md rounded-md px-[32px] py-[40px]">
                   <div className="w-[100%] bg-white flex flex-row justify-between items-center">
-                    <p className="w-1/3 text-left truncate">{app.jobId.title}</p>
-                    <p className="w-1/3 text-left truncate">{app.jobId.company}</p>
+                    <p className="w-1/3 text-left truncate">{app?.jobId?.title}</p>
+                    <p className="w-1/3 text-left truncate">{app?.jobId?.company}</p>
                     <div className={`bg-white rounded-full px-3 py-2 border-1 border-${
     app.status === 'approved' 
       ? 'success' 

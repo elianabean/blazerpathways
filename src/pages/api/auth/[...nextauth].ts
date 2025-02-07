@@ -13,7 +13,6 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          console.log("❌ Missing credentials");
           return null;
         }
 
@@ -21,17 +20,14 @@ export const authOptions: AuthOptions = {
         const user = await User.findOne({ email: credentials.email });
 
         if (!user) {
-          console.log("❌ User not found");
           return null;
         }
 
         // 🔹 TODO: Use bcrypt.compare() if passwords are hashed in DB
         if (credentials.password !== user.password) {
-          console.log("❌ Invalid password");
           return null;
         }
 
-        console.log("✅ User authenticated:", user.email);
         return {
           id: user._id.toString(),
           name: user.name,

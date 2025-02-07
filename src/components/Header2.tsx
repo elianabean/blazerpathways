@@ -19,6 +19,7 @@ import React from "react";
 
 export default function Header() {
   const { data: session, status } = useSession(); // Include status
+  console.log("header session", session)
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [

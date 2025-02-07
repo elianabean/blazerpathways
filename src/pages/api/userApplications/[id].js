@@ -17,12 +17,11 @@ export default async function handler(req, res) {
         .populate('jobId', 'title company')
         .exec();
 
-      console.log("those applications", applications)
-
       if (!applications.length) {
         return res.status(404).json({ message: 'No applications found' });
       }
 
+      console.log("success")
       return res.status(200).json(applications);
     } catch (error) {
       console.error('Error fetching applications:', error);
