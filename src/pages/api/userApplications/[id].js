@@ -2,6 +2,7 @@ import dbConnect from '../../../lib/dbConnect';
 import JobApplication from '../../../models/jobApplications';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import JobPosting from '../../../models/jobPostings';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -17,7 +18,7 @@ export default async function handler(req, res) {
         .populate('jobId', 'title company')
         .exec();
 
-      console.log(applications)
+      console.log("those applications", applications)
 
       if (!applications.length) {
         return res.status(404).json({ message: 'No applications found' });

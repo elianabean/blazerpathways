@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation'
 import Header from '@components/Header2'
-import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
+import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@heroui/react";
 import React from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from "@components/Header2";
 import Image from 'next/image';
-import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
+import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@heroui/react";
 import React from "react";
 
 export default function AdminPanel() {
@@ -91,13 +91,13 @@ export default function AdminPanel() {
 
         const errorData = await response.json();
 
-        console.error('Failed to approve job:', errorData.message);
+        console.log('Failed to approve job:', errorData.message);
 
       }
 
     } catch (error) {
 
-      console.error('Error:', error);
+      console.log('Error:', error);
 
     }
 

@@ -3,6 +3,10 @@ import JobPosting from '../../../models/jobPostings';
 import JobApplication from "../../../models/jobApplications";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import User from '@/models/User';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -83,6 +87,12 @@ export default async function handler(req, res) {
       const job = await JobPosting.findById(id);
       if (!job) return res.status(404).json({ error: 'Job not found' });
 
+      // Fetch the employer's email
+      const employer = await User.findById(job.employerId);
+      if (!employer) {
+        return res.status(404).json({ message: 'Employer not found' });
+      }
+
       const application = await JobApplication.create({
         jobId: id,
         name,
@@ -94,6 +104,8 @@ export default async function handler(req, res) {
         status: 'pending',
         userId,
       });
+
+      await sendEmailToEmployer(employer.email, job.title, { name, email, phone, resumeLink, portfolio });
 
       return res.status(201).json(application);
     } catch (error) {
@@ -117,4 +129,23 @@ export default async function handler(req, res) {
   }
   
   return res.status(405).json({ message: 'Method Not Allowed' });
+}
+
+async function sendEmailToEmployer(employerEmail, jobTitle, applicant) {
+  const msg = {
+    to: employerEmail,
+    from: process.env.EMAIL_FROM, // Use a verified email from SendGrid
+    subject: `New Application for ${jobTitle}`,
+    html: `
+      <h2>New Job Application Received</h2>
+      <p><strong>Job Title:</strong> ${jobTitle}</p>
+      <p><strong>Applicant Name:</strong> ${applicant.name}</p>
+      <p><strong>Email:</strong> ${applicant.email}</p>
+      <p><strong>Phone:</strong> ${applicant.phone}</p>
+      <p><strong>Resume:</strong> <a href="${applicant.resumeLink}">View Resume</a></p>
+      ${applicant.portfolio ? `<p><strong>Portfolio:</strong> <a href="${applicant.portfolio}">View Portfolio</a></p>` : ''}
+    `,
+  };
+
+  await sgMail.send(msg);
 }

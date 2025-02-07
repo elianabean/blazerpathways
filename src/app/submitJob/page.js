@@ -3,8 +3,9 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Header from "@components/Header";
-import {Input, Textarea, Button, Select, SelectItem, DateInput} from "@nextui-org/react";
+import Header from "@components/Header2";
+import {Input, Textarea, Button, Select, SelectItem, DateInput} from "@heroui/react";
+import Footer from "@components/Footer"
 
 export default function SubmitJobPage() {
   const { data: session, status } = useSession();
@@ -81,7 +82,7 @@ export default function SubmitJobPage() {
   return (
     <div className="h-full">
       <Header></Header>
-      <div className="flex flex-row mt-[60px] mx-[10vw] justify-center items-center">
+      <div className="flex flex-row mt-[60px] mx-[10vw] justify-center items-center mb-[24px]">
         <div className="w-[60%] ">
           <p className="text-text font-bold leading-[1.1] text-4xl">Submit a Job Posting</p>
 
@@ -125,6 +126,8 @@ export default function SubmitJobPage() {
 
         </div>
       </div>
+
+      <Footer></Footer>
     </div>
   );
 }

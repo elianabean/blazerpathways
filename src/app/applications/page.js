@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Header2 from '@components/Header2'
-import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
+import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@heroui/react";
 import React from "react";
 import Image from 'next/image';
 
@@ -38,9 +38,7 @@ export default function ApplicationsPage() {
       .then((response) => response.json())
       .then((data) => {
         setApplications(data);
-        if (!data || data.length === 0) {
-          router.push('/api/auth/signin');
-        }
+        console.log("the applications", data);
       })
       .catch((error) => console.error('Error fetching applications:', error));
   }, [session, status, router]);

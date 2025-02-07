@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {Button} from "@nextui-org/react";
+import {Button} from "@heroui/react";
 import Link from 'next/link';
 import Header2 from '@components/Header2'
 import Image from 'next/image';

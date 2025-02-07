@@ -1,14 +1,8 @@
 import { 
   Navbar, 
   NavbarBrand, 
-  NavbarContent, 
-  NavbarItem, 
-  Button , User, Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem
-} from "@nextui-org/react";
+  NavbarContent,
+} from "@heroui/react";
 import Link from 'next/link';
 import Image from 'next/image';
 

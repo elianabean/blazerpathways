@@ -1,7 +1,11 @@
 import dbConnect from '../../../../lib/dbConnect';
 import JobApplication from '../../../../models/jobApplications';
+import JobPosting from '@/models/JobPosting';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -38,6 +42,12 @@ export default async function handler(req, res) {
         return res.status(404).json({ message: 'Application not found' });
       }
 
+       // Fetch the job details to get the job title
+       const job = await JobPosting.findById(application.jobId);
+       if (!job) {
+         return res.status(404).json({ message: 'Job posting not found' });
+       }
+
       const { status } = req.body;
       if (!['approved', 'rejected'].includes(status)) {
         return res.status(400).json({ message: 'Invalid status' });
@@ -45,6 +55,8 @@ export default async function handler(req, res) {
 
       application.status = status;
       await application.save();
+
+      await sendApprovalEmail(application, job.title);
 
       return res.status(200).json(application);
     } catch (error) {
@@ -54,4 +66,23 @@ export default async function handler(req, res) {
   }
 
   return res.status(405).json({ message: 'Method Not Allowed' });
+}
+
+async function sendApprovalEmail(application, jobTitle) {
+  const msg = {
+    to: application.email,
+    from: process.env.EMAIL_FROM,
+    subject: `Your Job Application Has Been Approved! 🎉`,
+    html: `
+      <h2>Congratulations, ${application.name}!</h2>
+      <p>Your application for the job <strong>${application.jobId}</strong> has been approved.</p>
+      <p>The employer will reach out to you soon.</p>
+      <br>
+      <p>Best of luck!</p>
+    `,
+  };
+
+  await sgMail.send(msg);
+
+  console.log("Sent approval email to " + application.email)
 }
