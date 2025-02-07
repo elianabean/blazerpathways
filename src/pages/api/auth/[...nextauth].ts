@@ -40,7 +40,7 @@ export const authOptions = {
       return token;
     }
   },
-  session: { strategy: 'jwt' as 'jwt' },
+  session: { strategy: 'jwt' as const },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
