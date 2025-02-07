@@ -14,7 +14,7 @@ export default function JobApplicationsPage() {
   const [applications, setApplications] = useState([]);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [selectedApplication, setSelectedApplication] = useState(null);
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  const [scrollBehavior, _setScrollBehavior] = React.useState("inside");
   const router = useRouter();
 
   const handleOpen = (application) => {
@@ -126,7 +126,7 @@ export default function JobApplicationsPage() {
         if (!isOpen) handleClose();
       }} scrollBehavior={scrollBehavior}>
         <ModalContent>
-          {(onClose) => (
+          {(_onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">{application.name}</ModalHeader>
               <ModalBody>

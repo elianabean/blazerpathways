@@ -14,7 +14,7 @@ export default function ApprovedJobs() {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedJob, setSelectedJob] = useState(null);
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  const [scrollBehavior, _setScrollBehavior] = React.useState("inside");
 
   const uniqueValues = (key) => {
     return key === "keywords"
@@ -159,7 +159,7 @@ export default function ApprovedJobs() {
                 {selectedJob && selectedJob._id === job._id && (
                   <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={scrollBehavior}>
                     <ModalContent>
-                      {(onClose) => (
+                      {(_onClose) => (
                         <>
                           <ModalHeader className="flex flex-col gap-1">{job.title}</ModalHeader>
                           <ModalBody>

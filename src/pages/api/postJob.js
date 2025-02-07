@@ -7,7 +7,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]"
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const session = await getServerSession(req, res, authOptions);
+      const _session = await getServerSession(req, res, authOptions);
 
       await dbConnect();
 

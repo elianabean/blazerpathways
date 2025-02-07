@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '@components/Header2';
-import {Input, Textarea, Button, Select, SelectItem, DateInput} from "@heroui/react";
+import {Input, Button} from "@heroui/react";
 import Footer from "@components/Footer"
 
 export default function ApplyPage() {

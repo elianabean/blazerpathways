@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from "@components/Header2";
-import {Input, Textarea, Button, Select, SelectItem, DateInput} from "@heroui/react";
+import {Input, Textarea, Button, Select, SelectItem} from "@heroui/react";
 import Footer from "@components/Footer"
 
 export default function SubmitJobPage() {
@@ -62,7 +62,7 @@ export default function SubmitJobPage() {
         alert('Failed to submit job posting');
       }
     } catch (error) {
-      alert('Error submitting job posting');
+      alert('Error submitting job posting', error);
     }
   };
 

@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Header2 from '@components/Header2'
-import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@heroui/react";
+import {Button, useDisclosure} from "@heroui/react";
 import React from "react";
 import Image from 'next/image';
 
@@ -12,18 +12,12 @@ export default function ApplicationsPage() {
   const { data: session, status } = useSession();
   const [applications, setApplications] = useState([]);
   const router = useRouter();
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const [selectedapp, setSelectedApp] = useState(null);
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  const {_isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [_selectedapp, setSelectedApp] = useState(null);
   
   const handleOpen = (job) => {
     setSelectedApp(job);
     onOpen();
-  };
-
-  const handleClose = () => {
-    setSelectedApp(null); 
-    onOpenChange(false);
   };
 
   useEffect(() => {

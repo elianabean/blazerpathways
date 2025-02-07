@@ -2,7 +2,6 @@ import dbConnect from '../../../lib/dbConnect';
 import JobApplication from '../../../models/jobApplications';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
-import JobPosting from '../../../models/jobPostings';
 
 export default async function handler(req, res) {
   const { method } = req;

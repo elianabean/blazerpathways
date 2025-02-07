@@ -14,7 +14,7 @@ export default function AdminPanel() {
   const [jobPostings, setJobPostings] = useState([]);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [selectedJob, setSelectedJob] = useState(null);
-  const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  const [scrollBehavior] = React.useState("inside");
   
   const handleOpen = (job) => {
     setSelectedJob(job); // Set the selected job
@@ -122,7 +122,7 @@ export default function AdminPanel() {
         alert('Failed to delete job posting');
       }
     } catch (error) {
-      alert('Error deleting job posting');
+      alert('Error deleting job posting', error);
     }
   };
 
@@ -197,13 +197,13 @@ export default function AdminPanel() {
                 <p className="font-bold">Contact Email: <span className="font-normal">{job.contact}</span></p>
               </ModalBody>
               <ModalFooter>
-                <Button color="success" onClick={() => handleApprove(job._id)} className={`${
+                <Button color="success" onClick={() => { handleApprove(job._id); onClose(); }} className={`${
     job.status === 'approved' 
       ? 'hidden' : 'inline'
   }`}>
                   Approve
                 </Button>
-                <Button color="primary"  onClick={() => handleDelete(job._id)}>
+                <Button color="primary"  onClick={() => { handleDelete(job._id); onClose(); }}>
                   Delete
                 </Button>
               </ModalFooter>

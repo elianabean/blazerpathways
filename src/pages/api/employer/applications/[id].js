@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     }
   } else if (method === 'PUT') {
     try {
-      const session = await getServerSession(req, res, authOptions);
+      const _session = await getServerSession(req, res, authOptions);
 
       // find the application by ID
       const application = await JobApplication.findById(jobId);
@@ -75,7 +75,7 @@ async function sendApprovalEmail(application, jobTitle) {
     subject: `Your Job Application Has Been Approved! 🎉`,
     html: `
       <h2>Congratulations, ${application.name}!</h2>
-      <p>Your application for the job <strong>${application.jobId}</strong> has been approved.</p>
+      <p>Your application for the job <strong>${jobTitle}</strong> has been approved.</p>
       <p>The employer will reach out to you soon.</p>
       <br>
       <p>Best of luck!</p>
