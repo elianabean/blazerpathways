@@ -1,12 +1,29 @@
 "use client";
-import { SessionProvider, signIn, signOut } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider
-      session={typeof window !== "undefined" ? JSON.parse(sessionStorage.getItem("next-auth.session") || "null") : null}
-    >
+    <SessionProvider session={null}>
+      <SessionSync />
       {children}
     </SessionProvider>
   );
+}
+
+// Sync session with sessionStorage
+function SessionSync() {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (session) {
+        sessionStorage.setItem("next-auth.session", JSON.stringify(session));
+      } else {
+        sessionStorage.removeItem("next-auth.session");
+      }
+    }
+  }, [session]);
+
+  return null;
 }

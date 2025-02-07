@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { SessionStrategy } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/User";
@@ -31,12 +31,12 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }: { session: any, token: any }) {
+    async session({ session, token }: { session: any; token: any }) {
       session.user.id = token.id;
       session.user.role = token.role;
       return session;
     },
-    async jwt({ token, user }: { token: any, user?: any }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
@@ -45,21 +45,9 @@ export const authOptions = {
     },
   },
   session: {
-    strategy: "jwt" as const, // ✅ Force JWT for per-tab authentication
+    strategy: "jwt" as SessionStrategy, // ✅ Use JWT sessions (avoids cookies)
   },
   secret: process.env.NEXTAUTH_SECRET,
-  useSecureCookies: false, // ✅ Ensures cookies aren't shared across tabs
-  cookies: {
-    sessionToken: {
-      name: `next-auth.session-token-${Math.random()}`, // ✅ Randomized per tab
-      options: {
-        httpOnly: true,
-        secure: false, // Set to true in production with HTTPS
-        sameSite: "lax" as const,
-        path: "/",
-      },
-    },
-  },
 };
 
 export default NextAuth(authOptions);
