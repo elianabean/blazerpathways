@@ -12,22 +12,36 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        await dbConnect();
+        console.log("🔹 Credentials received:", credentials);
+      
         if (!credentials) {
+          console.log("❌ No credentials provided!");
           return null;
         }
-        const user = await User.findOne({ email: credentials.email });
 
-        if (user && credentials.password === user.password) {
-          return {
-            id: user._id.toString(),
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          };
+        await dbConnect();
+        const user = await User.findOne({ email: credentials.email });
+      
+        if (!user) {
+          console.log("❌ No user found!");
+          return null;
         }
-        return null;
-      },
+      
+        if (credentials.password !== user.password) {
+          console.log("❌ Incorrect password!");
+          return null;
+        }
+      
+        console.log("✅ User authenticated:", user);
+      
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
+      }
+      
     }),
   ],
   callbacks: {
