@@ -25,7 +25,6 @@ export default function RootLayout({
         className={`${inter.variable} font-inter overflow-x-hidden overflow-y-scroll`}
       >
         <Providers>
-          
           {children}
         </Providers>
       </body>
